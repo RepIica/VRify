@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import AScene from './components/AScene.js'
-import Aincraft from './components/Aincraft.js'
+import Login from './components/Login.js';
+// import AScene from './components/AScene.js'
+import Ui from './components/Ui.js'
 
 class App extends Component {
   render() {
@@ -10,7 +11,8 @@ class App extends Component {
         <div className="container">
           <h1>VRifiy</h1>
         </div>
-        <Aincraft />
+        {/* <Ui /> */}
+        <Login />
 
       </React.Fragment>
     );

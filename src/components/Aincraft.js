@@ -4,8 +4,8 @@ const Aincraft = (props) => {
   return(
     <a-scene avatar-recorder>
       <a-assets>
-        <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg"/>
-        <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg"/>
+        <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg" alt="ground"/>
+        <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg" alt="sky"/>
         <a-mixin id="voxel"
            geometry="primitive: box; height: 0.5; width: 0.5; depth: 0.5"
            material="shader: standard"
