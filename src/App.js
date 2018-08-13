@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { getCurrentUser } from './adapters/authAdapter.js'
 import { setSessionUser } from './actions/authActions.js'
 import { removeSessionUser } from './actions/userActions.js'
+import { saveProj } from './actions/projectActions.js'
 
 class App extends Component {
 
@@ -34,10 +35,28 @@ class App extends Component {
   }
 
   logout = () => {
-    console.log('hit logout')
     localStorage.removeItem('token')
     console.log('App.logout() ran. Browser token removed')
     this.props.removeSessionUser()
+  }
+
+  saveProject = () => {
+    const fileContent = document.documentElement.innerHTML;
+    const name = this.projectName()
+    const projToSave = {
+      fileContent,
+      name,
+      userId: this.props.currentUser.id
+    }
+    this.props.saveProj(projToSave)
+  }
+
+  projectName = () => {
+    let projectName = prompt(`Please enter project name, ${this.props.currentUser.name}`);
+      if (projectName != null) {
+          console.log("Your Project Name is " + projectName)
+          return projectName
+      }
   }
 
   render() {
@@ -45,28 +64,14 @@ class App extends Component {
     return (
       <React.Fragment>
         <div className="container-fluid">
-          <Nav logout={this.logout}/>
-          {/* <div className="header">
-            <div className="row">
-              <div className="col-xs-12">
-                <p></p>
-                <h1 className="no-margin">VRify</h1>
-                <button className="logout" onClick={this.logout}>Logout</button>
-              </div>
-            </div>
-            <hr/>
-          </div> */}
+          <Nav logout={this.logout} save={this.saveProject}/>
+
           {/* <Ui /> */}
           <Switch>
             <Route path="/profile" render={() => {
               return (this.props.currentUser ?
                 <p>placeholder for profile</p>
-                /* <React.Fragment>
-                  <div className="col-sm-3 col-sm-offset-7" align="center">
-                    <button className="btn btn-small" onClick={this.logout}>Logout</button>
-                  </div>
-                  <Profile user={this.props.currentUser}/>
-                </React.Fragment> */
+                  /* <Profile user={this.props.currentUser}/> */
                 : <Redirect to="/" />
               )
             }} />
@@ -103,4 +108,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps, { setSessionUser, removeSessionUser })(App));
+export default withRouter(connect(mapStateToProps, { setSessionUser, removeSessionUser, saveProj })(App));
