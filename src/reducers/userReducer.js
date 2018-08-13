@@ -1,4 +1,4 @@
-import {LOGIN_USER, SET_USER, LOGOUT_USER} from '../actions/types.js'
+import {LOGIN_USER, SET_USER} from '../actions/types.js'
 
 const initialState = {
   currentUser: null,
@@ -11,17 +11,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         currentUser: action.user,
+
       }
-    case SET_USER:
-      return {
-        ...state,
-        currentUser: action.user
-      }
-    case LOGOUT_USER:
-      return {
-        ...state,
-        currentUser: null
-      }
+      case SET_USER:
+        return {
+          ...state,
+          currentUser: action.user
+        }
     default:
       return state
   }

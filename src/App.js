@@ -1,24 +1,61 @@
 import React, { Component } from 'react';
-import './App.css';
 import Login from './components/Login.js';
 // import AScene from './components/AScene.js'
 import Ui from './components/Ui.js'
+import Nav from './components/Nav.js'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { getCurrentUser } from './adapters/authAdapter.js'
+import { setSessionUser } from './actions/authActions.js'
+import { removeSessionUser } from './actions/userActions.js'
 
 class App extends Component {
+
+  componentDidMount() {
+    if (localStorage.getItem('token')) {
+      getCurrentUser(localStorage.getItem('token')).then((user) => {
+        if (user) {
+          this.props.setSessionUser(user)
+        } else {
+          this.logout()
+        }
+      })
+
+    }
+    // getUsers()
+    //   .then(arr=>{
+    //     this.setState(() => {
+    //       return {
+    //         users: arr
+    //       }
+    //     },()=>{console.log(this.state.users)})
+    //   })
+
+  }
+
+  logout = () => {
+    console.log('hit logout')
+    localStorage.removeItem('token')
+    console.log('App.logout() ran. Browser token removed')
+    this.props.removeSessionUser()
+  }
+
   render() {
-    console.log('rendered');
+    console.log('<App /> rendered');
     return (
       <React.Fragment>
-        <div className="container">
-          <div className="row">
-            <div className="col-xs-12">
-              <p></p>
-              <h1>VRify</h1>
+        <div className="container-fluid">
+          <Nav logout={this.logout}/>
+          {/* <div className="header">
+            <div className="row">
+              <div className="col-xs-12">
+                <p></p>
+                <h1 className="no-margin">VRify</h1>
+                <button className="logout" onClick={this.logout}>Logout</button>
+              </div>
             </div>
-          </div>
-          <hr/>
+            <hr/>
+          </div> */}
           {/* <Ui /> */}
           <Switch>
             <Route path="/profile" render={() => {
@@ -66,4 +103,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(App));
+export default withRouter(connect(mapStateToProps, { setSessionUser, removeSessionUser })(App));

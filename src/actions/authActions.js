@@ -1,4 +1,4 @@
-import {LOGIN_USER, GET_USER, GET_USERS, NEW_USER} from './types'
+import {LOGIN_USER, SET_USER} from './types'
 import {loginUser, getCurrentUser} from '../adapters/authAdapter.js'
 
 export const submitLogin = (email, password) => {
@@ -7,11 +7,10 @@ export const submitLogin = (email, password) => {
       .then(data => {
         getCurrentUser(data.token)
         .then((user) => {
-          localStorage.setItem('token', data.token)
+          localStorage.setItem('token', data.token) //setting token so its not a pure function? refactor?
           // this.props.history.push('/profile')
           dispatch({ // action object
             type: LOGIN_USER,
-            payload: data.token,
             user: user
           })
         })
@@ -19,8 +18,11 @@ export const submitLogin = (email, password) => {
   }
 }
 
-export const getUsers = () => {
+export const setSessionUser = (user) => {
   return (dispatch) => {
-    //getUsers()
+    dispatch({ // action object
+      type: SET_USER,
+      user: user
+    })
   }
 }

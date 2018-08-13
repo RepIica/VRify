@@ -1,5 +1,95 @@
+html{
+  min-height: 100vh;
+  width: 100%;
+}
 body {
+  /* background-color: rgb(28, 36, 55); */
+  width: 100%;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  color: rgb(181, 181, 181);
+  /* background: #7e8588; */
+  background-color: #262626;
+  /* background: -webkit-linear-gradient(to right, #2c3e50, #7e8588); Chrome 10-25, Safari 5.1-6  */
+  /* background: linear-gradient(to right, #2c3e50, #7e8588); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
+a{
+  text-decoration: none;
+  color: inherit;
+}
+a-scene {
+  height: 100%;
+  width: 100%;
+}
+h1{
+  letter-spacing: 0.3rem;
+}
+#embedded-scene{
+  height: 89vh;
+}
+.header div div h1,button{
+  display: inline-block;
+}
+.logout{
+  float: right;
+}
+.no-margin{
+  margin: 0;
+}
+
+/*--------------- Nav CSS ----------------*/
+#nav{
+	margin:auto;
+	background-color: transparent;
+	border: none;
+  border-radius: 0px;
+	border-bottom: 1px rgba(255, 255, 255, 0.5) solid;
+  margin-bottom:2vh;
+  height: 9vh;
+  padding-top: 1.5vh;
+}
+
+#logo:hover{
+	opacity: 1;
+}
+
+#logo{
+  color: white;
+	width: 110px;
+	opacity: 0.8;
+  font: 1.5em Montserrat;
+  padding: 1vh 1vw;
+  height:auto;
+}
+#logo span {
+  font-size: 0.8em;
+}
+
+#navlink1{
+	font: 14px Montserrat;
+	color: #CDD1D1;
+	text-shadow: 0px 0px 6px gray;
+}
+
+.nav1{
+	width: 80px;
+	height: 50px;
+	padding: 0px 0px 0px 40px;
+}
+
+#navlink1:hover{
+	color:white;
+  cursor: pointer;
+}
+
+#navlink2{
+	font: 11px Montreal;
+	/* font: 11px Gravity-Bold; */
+	color: #CDD1D1;
+	/*text-shadow: 0px 0px 1px #213540;/*dark navy*/
+	text-shadow: 0px 0px 4px black;
+}
+
+/*-------------- /Nav CSS ----------------*/
