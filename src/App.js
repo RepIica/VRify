@@ -48,7 +48,12 @@ class App extends Component {
       name,
       userId: this.props.currentUser.id
     }
-    this.props.saveProj(projToSave)
+    if (name) {
+      this.props.saveProj(projToSave)
+      window.location.reload()
+    }else{
+      console.error('invalid project name');
+    }
   }
 
   projectName = () => {
@@ -56,7 +61,13 @@ class App extends Component {
       if (projectName != null) {
           console.log("Your Project Name is " + projectName)
           return projectName
+      }else{
+        return null
       }
+  }
+
+  download = () => {
+    //
   }
 
   render() {
