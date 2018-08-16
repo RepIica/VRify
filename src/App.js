@@ -41,7 +41,9 @@ class App extends Component {
   }
 
   saveProject = () => {
-    const fileContent = document.documentElement.innerHTML;
+    // const fileContent = document.documentElement.innerHTML;
+    const fileContent = document.getElementsByTagName('a-scene')[0].innerHTML;
+    debugger
     const name = this.projectName()
     const projToSave = {
       fileContent,
