@@ -3,6 +3,7 @@ import Login from './components/Login.js';
 // import AScene from './components/AScene.js'
 import Ui from './components/Ui.js'
 import Nav from './components/Nav.js'
+import { Button, Icon, Menu, Segment, Sidebar } from 'semantic-ui-react'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getCurrentUser } from './adapters/authAdapter.js'
@@ -68,47 +69,86 @@ class App extends Component {
       }
   }
 
-  download = () => {
-    //
-  }
+  state = { visible: false }
+
+  handleButtonClick = () => this.setState({ visible: !this.state.visible })
+
+  handleSidebarHide = () => this.setState({ visible: false })
 
   render() {
+
     console.log('<App /> rendered');
+    const { visible } = this.state
+
     return (
       <React.Fragment>
         <div className="container-fluid">
-          <Nav logout={this.logout} save={this.saveProject}/>
+          <Button onClick={this.handleButtonClick}>Toggle visibility</Button>
 
-          {/* <Ui /> */}
-          <Switch>
-            <Route path="/profile" render={() => {
-              return (this.props.currentUser ?
-                <p>placeholder for profile</p>
-                  /* <Profile user={this.props.currentUser}/> */
-                : <Redirect to="/" />
-              )
-            }} />
+          <Sidebar.Pushable as={Segment}>
+            <Sidebar
+              as={Menu}
+              animation='overlay'
+              icon='labeled'
+              inverted
+              onHide={this.handleSidebarHide}
+              vertical
+              visible={visible}
+              width='thin'
+            >
+              <Menu.Item as='a'>
+                <Icon name='home' />
+                Home
+              </Menu.Item>
+              <Menu.Item as='a'>
+                <Icon name='gamepad' />
+                Games
+              </Menu.Item>
+              <Menu.Item as='a'>
+                <Icon name='camera' />
+                Channels
+              </Menu.Item>
+            </Sidebar>
 
-            <Route path="/login" render={() => {
-              return (this.props.currentUser ? <Redirect to="/" /> : <Login />)
-            }} />
+            <Sidebar.Pusher>
+              <Segment basic>
 
-            <Route path="/signup" render={() => {
-              return (
-                <p>placeholder for signup</p>
-                // <Signup />
-              )
-            }} />
+                <Nav logout={this.logout} save={this.saveProject}/>
 
-            <Route path="/" render={() => {
-              return (
-                this.props.currentUser ?
-                  <Ui />
-                  : <Redirect to="/login" />
-                )
-            }}/>
+                <Switch>
+                  <Route path="/profile" render={() => {
+                    return (this.props.currentUser ?
+                      <p>placeholder for profile</p>
+                      /* <Profile user={this.props.currentUser}/> */
+                      : <Redirect to="/" />
+                    )
+                  }} />
 
-        </Switch>
+                  <Route path="/login" render={() => {
+                    return (this.props.currentUser ? <Redirect to="/" /> : <Login />)
+                  }} />
+
+                  <Route path="/signup" render={() => {
+                    return (
+                      <p>placeholder for signup</p>
+                      // <Signup />
+                    )
+                  }} />
+
+                  <Route path="/" render={() => {
+                    return (
+                      this.props.currentUser ?
+                      <Ui />
+                      : <Redirect to="/login" />
+                    )
+                  }}/>
+
+                </Switch>
+
+              </Segment>
+            </Sidebar.Pusher>
+          </Sidebar.Pushable>
+
       </div>
 
       </React.Fragment>

@@ -13,7 +13,7 @@ const Ui = (props) => {
         <a-entity id="main-camera" camera fps-look-controls wasd-controls> {/*raycaster to enable click detection*/}
           <a-entity cursor="rayOrigin: mouse;" raycaster="objects: .clickable" position="0 0 -1"
                     geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
-                    material="color: rgb(255, 255, 255); shader: flat; opacity: 0.8; transparent: true"></a-entity>
+                    material="color: rgb(255, 255, 255); shader: flat; opacity: 0.5; transparent: true"></a-entity>
         </a-entity>
 
         <a-assets>
