@@ -8,10 +8,12 @@ import landscape from '../img/landscape.jpg'
 const Ui = (props) => {
   return(
     <div id="embedded-scene" className="row">
-      <a-scene avatar-recorder embedded>
+      <a-scene embedded>
 
-        <a-entity id="main-camera" camera look-controls>
-          <a-entity cursor="rayOrigin: mouse;" raycaster="objects: .clickable"></a-entity>
+        <a-entity id="main-camera" camera fps-look-controls wasd-controls> {/*raycaster to enable click detection*/}
+          <a-entity cursor="rayOrigin: mouse;" raycaster="objects: .clickable" position="0 0 -1"
+                    geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
+                    material="color: rgb(255, 255, 255); shader: flat; opacity: 0.8; transparent: true"></a-entity>
         </a-entity>
 
         <a-assets>
@@ -38,7 +40,7 @@ const Ui = (props) => {
           animation="property: opacity; dir: normal; dur: 1500;
                      easing: easeInOutQuad; loop: false; from:0; to: 1; delay: 1000;"></a-image>
 
-         <a-plane id="center-tile" class="clickable" position="0 1 -8" width="4" height="3" opacity="0"
+        <a-plane id="center-tile" class="clickable" position="0 1 -8" width="4" height="3" opacity="0"
                   animation="property: scale; dir: normal; dur: 500; easing: easeOutQuad; loop: false; from: 1 1 1; to: 1.5 1.5 1.5; startEvents: click;">
           <a-image
             id="center-tile-image"
