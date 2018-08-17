@@ -42,13 +42,13 @@ class Nav extends React.Component {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
+
             <a className="navbar-brand" id="logo" href="/">VR<span>IFY</span></a>
           </div>
 
-
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul className="nav navbar-nav">
-              {this.props.currentUser ?<li><a id="navlink1">LOGGED IN AS: {this.props.currentUser.name.toUpperCase()}</a></li>:null}
+              {/* {this.props.currentUser ?<li><a id="navlink1">LOGGED IN AS: {this.props.currentUser.name.toUpperCase()}</a></li>:null} */}
             </ul>
             <ul className="nav navbar-nav navbar-right">
               {this.props.currentUser ?

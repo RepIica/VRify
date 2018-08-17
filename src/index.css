@@ -9,6 +9,7 @@ body {
   margin: 0;
   padding: 0;
   color: rgb(181, 181, 181);
+  font-size: 16px;
   /* background: #7e8588; */
   background-color: #262626;
   /* background: -webkit-linear-gradient(to right, #2c3e50, #7e8588); Chrome 10-25, Safari 5.1-6  */
@@ -38,6 +39,17 @@ h1{
 .no-margin{
   margin: 0;
 }
+/*--------------- semantic ----------------*/
+
+.ui.segment{
+  background-color: transparent;
+  border: none
+}
+.ui.basic.segment {
+  padding: 0;
+}
+
+/*--------------- /semantic ----------------*/
 
 /*--------------- Nav CSS ----------------*/
 #nav{
@@ -50,7 +62,28 @@ h1{
   height: 9vh;
   padding-top: 1.5vh;
 }
-
+.button .icon-bar {
+  background-color: #888;
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 1px;
+}
+.button .icon-bar+.icon-bar{
+  margin-top: 4px;
+}
+#embedded-scene .button{
+  background: rgba(255, 255, 255, 0.23);
+  padding: 9px 10px;
+  /* float: left; */
+  position:absolute;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0;
+  left: 0px;
+  z-index: 10;
+}
 #logo:hover{
 	opacity: 1;
 }
@@ -59,12 +92,13 @@ h1{
   color: white;
 	width: 110px;
 	opacity: 0.8;
-  font: 1.5em Montserrat;
-  padding: 1vh 1vw;
+  font: 32px Montserrat;
+  padding: 0vh 1vw;
   height:auto;
+  margin: 0;
 }
 #logo span {
-  font-size: 0.8em;
+  font-size: 20px;
 }
 
 #navlink1{
