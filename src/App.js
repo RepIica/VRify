@@ -3,6 +3,7 @@ import Login from './components/Login.js';
 // import AScene from './components/AScene.js'
 import Ui from './components/Ui.js'
 import Nav from './components/Nav.js'
+import ImageFade from './components/ImageFade.js'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getCurrentUser } from './adapters/authAdapter.js'
@@ -94,7 +95,8 @@ class App extends Component {
 
                   <Route path="/signup" render={() => {
                     return (
-                      <p>placeholder for signup</p>
+                      <ImageFade />
+                      // <p>placeholder for signup</p>
                       // <Signup />
                     )
                   }} />
