@@ -4,6 +4,7 @@ import church from '../img/church.jpg'
 import slopes from '../img/slopes.jpg'
 import sidewalk from '../img/sidewalk.jpg'
 import landscape from '../img/landscape.jpg'
+import {randInt,randFloat} from '../calculations.js'
 import { Button } from 'semantic-ui-react'
 import { Icon, Menu, Segment, Sidebar } from 'semantic-ui-react'
 
@@ -16,8 +17,18 @@ class Ui extends React.Component {
 
   handleSidebarHide = () => this.setState({ visible: false })
 
-  addSphere = () => {
-    console.log('addSphere clicked')
+  addSphere = (primitive) => {
+    const sceneEl = document.querySelector('a-scene');
+    const entityEl = document.createElement(`a-${primitive}`);
+    // Do `.setAttribute()`s to initialize the entity.
+    const z = randFloat(-7,-1)
+    const y = randFloat(0, 3)
+    const x = randFloat(-3, 3)
+    console.log(x,y,z)
+    sceneEl.appendChild(entityEl);
+    entityEl.setAttribute('position', {x, y, z});
+    // entityEl.object3D.position.set(x, y, z);
+    console.log(`${primitive} added`);
   }
 
   render() {
@@ -27,7 +38,7 @@ class Ui extends React.Component {
       <Sidebar.Pushable as={Segment}>
         <Sidebar
           as={Menu}
-          animation='push'
+          animation='scale down'
           icon='labeled'
           inverted
           onHide={this.handleSidebarHide}
@@ -35,14 +46,14 @@ class Ui extends React.Component {
           visible={visible}
           width='thin'
         >
-          <Menu.Item as='a' className="shape-btn" onClick={this.addSphere}>
+          <Menu.Item as='a' className="shape-btn" onClick={()=>{this.addSphere('sphere')}}>
             sphere
           </Menu.Item>
-          <Menu.Item as='a' className="shape-btn">
+          <Menu.Item as='a' className="shape-btn" onClick={()=>{this.addSphere('box')}}>
             cube
           </Menu.Item>
-          <Menu.Item as='a' className="shape-btn">
-            plane
+          <Menu.Item as='a' className="shape-btn" onClick={()=>{this.addSphere('torus-knot')}}>
+            torus knot
           </Menu.Item>
         </Sidebar>
 
