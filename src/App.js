@@ -44,7 +44,6 @@ class App extends Component {
   saveProject = () => {
     // const fileContent = document.documentElement.innerHTML;
     const fileContent = document.getElementsByTagName('a-scene')[0].innerHTML;
-    debugger
     const name = this.projectName()
     const projToSave = {
       fileContent,
@@ -54,19 +53,28 @@ class App extends Component {
     if (name) {
       this.props.saveProj(projToSave)
       window.location.reload()
-    }else{
-      console.error('invalid project name');
     }
   }
 
   projectName = () => {
-    let projectName = prompt(`Please enter project name, ${this.props.currentUser.name}`);
-      if (projectName != null) {
-          console.log("Your Project Name is " + projectName)
-          return projectName
-      }else{
+    let projName = prompt(`Please enter project name, ${this.props.currentUser.name}`);
+    if (projName){
+      if(projName.includes(" ")){
+        alert('Please do not include spaces in your project name')
         return null
       }
+      else if( projName.match(/[\<\>!@#\$%^&\*,]+/i) || projName ==="") {
+        alert('Inavlid project name, please try again.');
+        return null
+      }
+      else{
+        console.log("Your Project Name is " + projName)
+        return projName
+      }
+    }else{
+      alert('No project name entered, please try again.');
+      return null
+    }
   }
 
 
@@ -77,7 +85,12 @@ class App extends Component {
     return (
       <React.Fragment>
 
-        <SemNav logout={this.logout} save={this.saveProject} history={this.props.history}/>
+        <SemNav
+          logout={this.logout}
+          save={this.saveProject}
+          history={this.props.history}
+          setProj={()=>{console.log('dispatch currentproj to store')}}
+        />
 
         <Switch>
           <Route path="/profile" render={() => {

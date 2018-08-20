@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Dropdown, Menu } from 'semantic-ui-react'
+import { Dropdown, Menu, Button } from 'semantic-ui-react'
 
 class SemNav extends React.Component {
 
@@ -36,6 +36,17 @@ class SemNav extends React.Component {
 
   }
 
+  mobileToggle = () => {
+    const el = document.querySelector('.right.menu')
+    if (el.style.position==='static'){
+      el.style.position = 'absolute'
+      el.style.visibility = 'hidden'      
+    }else{
+      el.style.position = 'static'
+      el.style.visibility = 'visible'
+    }
+  }
+
   render() {
 
     return (
@@ -47,6 +58,12 @@ class SemNav extends React.Component {
           // children={<span>IFY</span>}
           id ='logo'
         />
+
+        <Button onClick={this.mobileToggle} id="mobile-btn">
+          <span className="icon-bar"></span>
+          <span className="icon-bar"></span>
+          <span className="icon-bar"></span>
+        </Button>
 
         <Menu.Menu position='right'>
           {this.props.currentUser ?
@@ -61,7 +78,7 @@ class SemNav extends React.Component {
               <Menu.Item
                 name='SAVE PROJECT'
                 className="navlink1"
-                onClick={(e) => {this.props.save();this.setProj()}}
+                onClick={(e) => {this.props.save();this.props.setProj()}}
                 download
               />
               <Menu.Item

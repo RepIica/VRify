@@ -16,6 +16,10 @@ class Ui extends React.Component {
 
   handleSidebarHide = () => this.setState({ visible: false })
 
+  addSphere = () => {
+    console.log('addSphere clicked')
+  }
+
   render() {
     const { visible } = this.state
     return(
@@ -31,17 +35,14 @@ class Ui extends React.Component {
           visible={visible}
           width='thin'
         >
-          <Menu.Item as='a'>
-            <Icon name='home' />
-            Home
+          <Menu.Item as='a' className="shape-btn" onClick={this.addSphere}>
+            sphere
           </Menu.Item>
-          <Menu.Item as='a'>
-            <Icon name='gamepad' />
-            Games
+          <Menu.Item as='a' className="shape-btn">
+            cube
           </Menu.Item>
-          <Menu.Item as='a'>
-            <Icon name='camera' />
-            Channels
+          <Menu.Item as='a' className="shape-btn">
+            plane
           </Menu.Item>
         </Sidebar>
 

@@ -58,6 +58,16 @@ a-scene {
 
 /*--------------- /semantic ----------------*/
 
+/*--------------- Sidebar CSS ----------------*/
+
+.shape-btn{
+  font-size: 12px; 
+}
+
+
+
+/*-------------- /Sidebar CSS ----------------*/
+
 /*--------------- Nav CSS ----------------*/
 #nav{
 	margin:auto;
@@ -107,6 +117,13 @@ a-scene {
   font-size: 20px;
 }
 
+#mobile-btn{
+  position: absolute;
+  right: 0;
+  visibility: hidden;
+  background: transparent;
+}
+
 .ui.menu .navlink1{
 	font: 14px Montserrat;
 	color: #CDD1D1;
@@ -130,6 +147,22 @@ a-scene {
 	color: #CDD1D1;
 	/*text-shadow: 0px 0px 1px #213540;/*dark navy*/
 	text-shadow: 0px 0px 4px black;
+}
+@media (max-width: 767px) {
+  #nav{
+    height: inherit;
+    min-height: 9vh;
+  }
+  #logo, #mobile-btn{
+    height: 9vh;
+  }
+  #mobile-btn{
+    visibility: visible;
+  }
+  .right.menu{
+    position:absolute;
+    visibility: hidden;
+  }
 }
 
 /*-------------- /Nav CSS ----------------*/
