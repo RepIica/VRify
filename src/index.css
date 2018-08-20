@@ -23,14 +23,18 @@ a-scene {
   height: 100%;
   width: 100%;
 }
-h1{
-  letter-spacing: 0.3rem;
-}
-#embedded-scene{
+#embedded-scene, #ui-container{
   height: 89vh;
 }
 .header div div h1,button{
   display: inline-block;
+}
+#login-h1{
+  font: 40px Roboto;
+  margin-bottom: 25px;
+}
+#login-align{
+  height: 89vh;
 }
 .logout{
   float: right;
@@ -40,12 +44,16 @@ h1{
 }
 /*--------------- semantic ----------------*/
 
-.ui.segment{
-  background-color: transparent;
-  border: none
+.ui.header{
+  letter-spacing: 0.3rem;
+  font-weight: 400;
 }
 .ui.basic.segment {
   padding: 0;
+}
+.ui.segment{
+  background-color: transparent;
+  border: none
 }
 
 /*--------------- /semantic ----------------*/
