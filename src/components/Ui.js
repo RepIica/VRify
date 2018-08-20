@@ -4,7 +4,7 @@ import church from '../img/church.jpg'
 import slopes from '../img/slopes.jpg'
 import sidewalk from '../img/sidewalk.jpg'
 import landscape from '../img/landscape.jpg'
-import {randInt,randFloat} from '../calculations.js'
+import {randInt,randInv} from '../calculations.js'
 import { Button } from 'semantic-ui-react'
 import { Icon, Menu, Segment, Sidebar } from 'semantic-ui-react'
 
@@ -21,9 +21,9 @@ class Ui extends React.Component {
     const sceneEl = document.querySelector('a-scene');
     const entityEl = document.createElement(`a-${primitive}`);
     // Do `.setAttribute()`s to initialize the entity.
-    const z = randFloat(-7,-1)
-    const y = randFloat(0, 3)
-    const x = randFloat(-3, 3)
+    const z = randInv(-7,-1, 0.2)
+    const y = randInv(0, 3, 0.2)
+    const x = randInv(-3, 3, 0.2)
     console.log(x,y,z)
     sceneEl.appendChild(entityEl);
     entityEl.setAttribute('position', {x, y, z});
