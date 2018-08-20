@@ -17,13 +17,7 @@ class Login extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className="row">
-          <div className="col-xs-12" align="center">
             <h1>Login</h1>
-          </div>
-        </div>
-          <div className="row">
-            <div className="col-sm-4 col-sm-offset-4 col-xs-12">
               <form onSubmit={(e) => {
                 e.preventDefault()
                 this.props.submitLogin(this.state.email, this.state.password)
@@ -32,8 +26,6 @@ class Login extends React.Component {
               <input type="password" name="password" placeholder="password" value={this.state.password} onChange={this.onInputChange}/><br/><br/>
               <input type="submit" value="Log In"/>
             </form>
-          </div>
-        </div>
       </React.Fragment>
     )
   }

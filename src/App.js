@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Login from './components/Login.js';
 // import AScene from './components/AScene.js'
 import Ui from './components/Ui.js'
-import Nav from './components/Nav.js'
+import SemNav from './components/SemNav.js'
 import ImageFade from './components/ImageFade.js'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -76,42 +76,40 @@ class App extends Component {
     console.log('<App /> rendered');
     return (
       <React.Fragment>
-        <div className="container-fluid">
 
-                <Nav logout={this.logout} save={this.saveProject} />
+        <SemNav logout={this.logout} save={this.saveProject} history={this.props.history}/>
 
-                <Switch>
-                  <Route path="/profile" render={() => {
-                    return (this.props.currentUser ?
-                      <p>placeholder for profile</p>
-                      /* <Profile user={this.props.currentUser}/> */
-                      : <Redirect to="/" />
-                    )
-                  }} />
+        <Switch>
+          <Route path="/profile" render={() => {
+            return (this.props.currentUser ?
+              <p>placeholder for profile</p>
+              /* <Profile user={this.props.currentUser}/> */
+              : <Redirect to="/" />
+            )
+          }} />
 
-                  <Route path="/login" render={() => {
-                    return (this.props.currentUser ? <Redirect to="/" /> : <Login />)
-                  }} />
+          <Route path="/login" render={() => {
+            return (this.props.currentUser ? <Redirect to="/" /> : <Login />)
+          }} />
 
-                  <Route path="/signup" render={() => {
-                    return (
-                      <ImageFade />
-                      // <p>placeholder for signup</p>
-                      // <Signup />
-                    )
-                  }} />
+          <Route path="/signup" render={() => {
+            return (
+              <ImageFade />
+              // <p>placeholder for signup</p>
+              // <Signup />
+            )
+          }} />
 
-                  <Route path="/" render={() => {
-                    return (
-                      this.props.currentUser ?
-                      <Ui/>
-                      : <Redirect to="/login" />
-                    )
-                  }}/>
+          <Route path="/" render={() => {
+            return (
+              this.props.currentUser ?
+              <Ui/>
+              : <Redirect to="/login" />
+            )
+          }}/>
 
-                </Switch>
+        </Switch>
 
-      </div>
 
       </React.Fragment>
     )

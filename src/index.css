@@ -59,7 +59,6 @@ h1{
 	border-bottom: 1px rgba(255, 255, 255, 0.5) solid;
   margin-bottom:2vh;
   height: 9vh;
-  padding-top: 1.5vh;
 }
 .button .icon-bar {
   background-color: #888;
@@ -100,7 +99,7 @@ h1{
   font-size: 20px;
 }
 
-#navlink1{
+.ui.menu .navlink1{
 	font: 14px Montserrat;
 	color: #CDD1D1;
 	text-shadow: 0px 0px 6px gray;
@@ -112,12 +111,12 @@ h1{
 	padding: 0px 0px 0px 40px;
 }
 
-#navlink1:hover{
+.ui.menu .navlink1:hover{
 	color:white;
   cursor: pointer;
 }
 
-#navlink2{
+.navlink2{
 	font: 11px Montreal;
 	/* font: 11px Gravity-Bold; */
 	color: #CDD1D1;
