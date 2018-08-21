@@ -23,6 +23,7 @@ a-scene {
   height: 100%;
   width: 100%;
 }
+input{color:inherit;}
 #embedded-scene, #ui-container{
   height: 89vh;
 }
@@ -43,21 +44,6 @@ a-scene {
   margin: 0;
 }
 /*--------------- semantic ----------------*/
-
-.ui.header{
-  letter-spacing: 0.3rem;
-  font-weight: 400;
-}
-.ui.basic.segment {
-  padding: 0;
-}
-.ui.segment{
-  background-color: transparent;
-  border: none
-}
-
-/*--------------- /semantic ----------------*/
-
 /*--------------- Sidebar CSS ----------------*/
 
 .shape-btn{
@@ -66,9 +52,31 @@ a-scene {
 .ui.inverted.icon.menu .item.warning{
   color: rgb(255, 88, 88);
 }
+.ui.inverted.icon.menu .item{
+  color: rgb(199, 199, 199);
+}
+.ui.selection.dropdown {
+  background-color: #1b1c1d;
+  color: rgb(199, 199, 199);
+}
 
 
 /*-------------- /Sidebar CSS ----------------*/
+
+.ui.basic.segment {
+  padding: 0;
+}
+.ui.header{
+  letter-spacing: 0.3rem;
+  font-weight: 400;
+}
+.ui.segment{
+  background-color: transparent;
+  border: none
+}
+
+/*--------------- /semantic ----------------*/
+
 
 /*--------------- Nav CSS ----------------*/
 #nav{

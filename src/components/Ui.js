@@ -4,11 +4,10 @@ import church from '../img/church.jpg'
 import slopes from '../img/slopes.jpg'
 import sidewalk from '../img/sidewalk.jpg'
 import landscape from '../img/landscape.jpg'
+import SidebarItems from './SidebarItems.js'
 import {randInt,randInv} from '../calculations.js'
 import { Button } from 'semantic-ui-react'
-import { Icon, Menu, Segment, Sidebar } from 'semantic-ui-react'
-
-
+import { Menu, Segment, Sidebar } from 'semantic-ui-react'
 
 class Ui extends React.Component {
   state = { visible: false }
@@ -21,7 +20,7 @@ class Ui extends React.Component {
     const sceneEl = document.querySelector('a-scene');
     const entityEl = document.createElement(`a-${primitive}`);
     // Do `.setAttribute()`s to initialize the entity.
-    const z = randInv(-7,-1, 0.2)
+    const z = randInv(-7, -2, 0.2)
     const y = randInv(0, 3, 0.2)
     const x = randInv(-3, 3, 0.2)
     console.log(x,y,z)
@@ -30,6 +29,13 @@ class Ui extends React.Component {
     entityEl.classList.add('user-added')
     // entityEl.object3D.position.set(x, y, z);
     console.log(`${primitive} added`);
+  }
+
+  addText = () => {
+    const text = prompt('Enter Text:')
+    this.addPrimitive('text')           //refactor to not use this method, possible async issue
+    const allTexts = document.querySelectorAll('a-text')
+    allTexts[allTexts.length-1].setAttribute('value', text)
   }
 
   removeAllUserAdded = () => {
@@ -52,10 +58,12 @@ class Ui extends React.Component {
           visible={visible}
           width='thin'
         >
-          <Menu.Item as='a' className="shape-btn" onClick={()=>{this.addPrimitive('sphere')}}>sphere</Menu.Item>
-          <Menu.Item as='a' className="shape-btn" onClick={()=>{this.addPrimitive('box')}}>cube</Menu.Item>
-          <Menu.Item as='a' className="shape-btn" onClick={()=>{this.addPrimitive('torus-knot')}}>torus knot</Menu.Item>
-          <Menu.Item as='a' className="shape-btn warning" onClick={this.removeAllUserAdded}>clear</Menu.Item>
+          <SidebarItems
+            addPrimitive={this.addPrimitive}
+            removeAllUserAdded={this.removeAllUserAdded}
+            addText={this.addText}
+          ></SidebarItems>
+
         </Sidebar>
 
         <Sidebar.Pusher>
@@ -88,7 +96,7 @@ class Ui extends React.Component {
 
                 <a-sphere id="main-bg" radius="100" position="0 0 0" rotation="0 90 0" src="#start-bg" color="#333333" material="side: double;"></a-sphere>
 
-                <a-image
+                {/* <a-image
                   id="left-tile-image"
                   className="tile"
                   position="-4.5 1 -8"
@@ -97,7 +105,7 @@ class Ui extends React.Component {
                   height="3"
                   opacity="0"
                   animation="property: opacity; dir: normal; dur: 1500;
-                             easing: easeInOutQuad; loop: false; from:0; to: 1; delay: 1000;"></a-image>
+                             easing: easeInOutQuad; loop: false; from:0; to: 1; delay: 1000;"></a-image> */}
 
                 <a-plane id="center-tile" class="clickable" position="0 1 -8" width="4" height="3" opacity="0"
                           animation="property: scale; dir: normal; dur: 500; easing: easeOutQuad; loop: false; from: 1 1 1; to: 1.5 1.5 1.5; startEvents: click;">
@@ -123,7 +131,7 @@ class Ui extends React.Component {
                     </a-plane>
                 </a-plane>
 
-                <a-image
+                {/* <a-image
                   id="right-tile-image"
                   className="tile"
                   position="4.5 1 -8"
@@ -132,7 +140,9 @@ class Ui extends React.Component {
                   height="3"
                   opacity="0"
                   animation="property: opacity; dir: normal; dur: 1500;
-                             easing: easeInOutQuad; loop: false; from:0; to: 1; delay: 1500;"></a-image>
+                             easing: easeInOutQuad; loop: false; from:0; to: 1; delay: 1500;"></a-image> */}
+
+                {/* <a-text value="Now Interactable" geometry="primitive:plane" position="4.5 1 -8"></a-text> */}
 
               </a-scene>
             </div>

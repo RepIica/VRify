@@ -63,6 +63,7 @@ class App extends Component {
         alert('Please do not include spaces in your project name')
         return null
       }
+      // eslint-disable-next-line
       else if( projName.match(/[\<\>!@#\$%^&\*,]+/i) || projName ==="") {
         alert('Inavlid project name, please try again.');
         return null
