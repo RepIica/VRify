@@ -17,7 +17,7 @@ class Ui extends React.Component {
 
   handleSidebarHide = () => this.setState({ visible: false })
 
-  addSphere = (primitive) => {
+  addPrimitive = (primitive) => {
     const sceneEl = document.querySelector('a-scene');
     const entityEl = document.createElement(`a-${primitive}`);
     // Do `.setAttribute()`s to initialize the entity.
@@ -27,8 +27,14 @@ class Ui extends React.Component {
     console.log(x,y,z)
     sceneEl.appendChild(entityEl);
     entityEl.setAttribute('position', {x, y, z});
+    entityEl.classList.add('user-added')
     // entityEl.object3D.position.set(x, y, z);
     console.log(`${primitive} added`);
+  }
+
+  removeAllUserAdded = () => {
+    const sceneEl = document.querySelector('a-scene');
+    sceneEl.querySelectorAll('.user-added').forEach((el)=>{el.parentNode.removeChild(el)})
   }
 
   render() {
@@ -46,15 +52,10 @@ class Ui extends React.Component {
           visible={visible}
           width='thin'
         >
-          <Menu.Item as='a' className="shape-btn" onClick={()=>{this.addSphere('sphere')}}>
-            sphere
-          </Menu.Item>
-          <Menu.Item as='a' className="shape-btn" onClick={()=>{this.addSphere('box')}}>
-            cube
-          </Menu.Item>
-          <Menu.Item as='a' className="shape-btn" onClick={()=>{this.addSphere('torus-knot')}}>
-            torus knot
-          </Menu.Item>
+          <Menu.Item as='a' className="shape-btn" onClick={()=>{this.addPrimitive('sphere')}}>sphere</Menu.Item>
+          <Menu.Item as='a' className="shape-btn" onClick={()=>{this.addPrimitive('box')}}>cube</Menu.Item>
+          <Menu.Item as='a' className="shape-btn" onClick={()=>{this.addPrimitive('torus-knot')}}>torus knot</Menu.Item>
+          <Menu.Item as='a' className="shape-btn warning" onClick={this.removeAllUserAdded}>clear</Menu.Item>
         </Sidebar>
 
         <Sidebar.Pusher>

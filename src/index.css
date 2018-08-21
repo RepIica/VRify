@@ -61,9 +61,11 @@ a-scene {
 /*--------------- Sidebar CSS ----------------*/
 
 .shape-btn{
-  font-size: 12px; 
+  font-size: 14px;
 }
-
+.ui.inverted.icon.menu .item.warning{
+  color: rgb(255, 88, 88);
+}
 
 
 /*-------------- /Sidebar CSS ----------------*/
