@@ -28,7 +28,7 @@ class Ui extends React.Component {
     entityEl.setAttribute('position', {x, y, z});
     entityEl.setAttribute('color', randGrayColor());
     entityEl.setAttribute('mixin', 'editable');
-    entityEl.classList.add('user-added')
+    entityEl.classList.add('clickable')
     // entityEl.object3D.position.set(x, y, z);
     console.log(`${primitive} added`);
   }
@@ -41,10 +41,19 @@ class Ui extends React.Component {
       allTexts[allTexts.length-1].setAttribute('value', text)
     }
   }
+  addText2 = () => {
+    const text = textValidator(prompt('Enter Text:'))
+    if (text) {
+      this.addPrimitive('text')           //refactor to not use this method, possible async issue
+      const allTexts = document.querySelectorAll('a-text')
+      allTexts[allTexts.length-1].setAttribute('value', text)
+      allTexts[allTexts.length-1].setAttribute('geometry',"primitive:plane")
+    }
+  }
 
   removeAllUserAdded = () => {
     const sceneEl = document.querySelector('a-scene');
-    sceneEl.querySelectorAll('.user-added').forEach((el)=>{el.parentNode.removeChild(el)})
+    sceneEl.querySelectorAll('.clickable').forEach((el)=>{el.parentNode.removeChild(el)})
   }
 
   render() {
@@ -66,6 +75,7 @@ class Ui extends React.Component {
             addPrimitive={this.addPrimitive}
             removeAllUserAdded={this.removeAllUserAdded}
             addText={this.addText}
+            addText2={this.addText2}
           ></SidebarItems>
 
         </Sidebar>
@@ -88,15 +98,16 @@ class Ui extends React.Component {
                 </a-entity> */}
 
                 <a-entity camera wasd-controls fps-look-controls position="0 0 1"
-                          capture-mouse
-                          raycaster="objects: .user-added" cursor="rayOrigin:mouse"
-                          static-body="shape: sphere; sphereRadius: 0.001"
-                          super-hands="colliderEvent: raycaster-intersection;
-                                      colliderEventProperty: els;
-                                      colliderEndEvent:raycaster-intersection-cleared;
-                                      colliderEndEventProperty: clearedEls;"
-                          geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
-                          material="color: rgb(255, 255, 255); shader: flat; opacity: 0.5; transparent: true">
+                          capture-mouse raycaster="objects: .clickable">
+                  <a-entity cursor="rayOrigin: mouse;" position="0 0 -1"
+                            geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
+                            material="color: rgb(255, 255, 255); shader: flat; opacity: 0.5; transparent: true"
+                            raycaster="objects: .clickable" // 2nd object class?
+                            static-body="shape: sphere; sphereRadius: 0.001"
+                            super-hands="colliderEvent: raycaster-intersection;
+                            colliderEventProperty: els;
+                            colliderEndEvent:raycaster-intersection-cleared;
+                            colliderEndEventProperty: clearedEls;"></a-entity>
 
                 </a-entity>
 
@@ -169,7 +180,7 @@ class Ui extends React.Component {
                              easing: easeInOutQuad; loop: false; from:0; to: 1; delay: 1500;"></a-image> */}
 
                 {/* <a-text value="Now Interactable" geometry="primitive:plane" position="4.5 1 -8"></a-text> */}
-                <a-entity class="user-added" geometry="primitive: box; width: 0.5; height: 0.5; depth: 0.5" mixin="editable" position="0 1 -1.25" material="color: red"></a-entity>
+                {/* <a-entity class="clickable" geometry="primitive: box; width: 0.5; height: 0.5; depth: 0.5" mixin="editable" position="0 1 -1.25" material="color: red"></a-entity> */}
 
               </a-scene>
             </div>

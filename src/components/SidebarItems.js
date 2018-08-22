@@ -10,6 +10,7 @@ const SidebarItems = (props) => (
     <Menu.Item as='a' className="shape-btn" onClick={()=>{props.addPrimitive('plane')}}>plane</Menu.Item>
     <Menu.Item as='a' className="shape-btn" onClick={()=>{props.addPrimitive('light')}}>kill lights</Menu.Item>
     <Menu.Item as='a' className="shape-btn" onClick={props.addText}>Add Text</Menu.Item>
+    <Menu.Item as='a' className="shape-btn" onClick={props.addText2}>Add Text v2</Menu.Item>
     <FlagsDropdown></FlagsDropdown>
     <Menu.Item as='a' className="shape-btn warning" onClick={props.removeAllUserAdded}>clear</Menu.Item>
 
