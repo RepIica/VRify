@@ -5,7 +5,7 @@ import slopes from '../img/slopes.jpg'
 import sidewalk from '../img/sidewalk.jpg'
 import landscape from '../img/landscape.jpg'
 import SidebarItems from './SidebarItems.js'
-import { randInt,randInv,textValidator,randHexColor } from '../calculations.js'
+import { randInt,randInv,textValidator,randBrightColor,randGrayColor } from '../calculations.js'
 import { Button } from 'semantic-ui-react'
 import { Menu, Segment, Sidebar } from 'semantic-ui-react'
 
@@ -26,7 +26,8 @@ class Ui extends React.Component {
     console.log(x,y,z)
     sceneEl.appendChild(entityEl);
     entityEl.setAttribute('position', {x, y, z});
-    entityEl.setAttribute('color', randHexColor());
+    entityEl.setAttribute('color', randGrayColor());
+    entityEl.setAttribute('grabbable');
     entityEl.classList.add('user-added')
     // entityEl.object3D.position.set(x, y, z);
     console.log(`${primitive} added`);
@@ -80,13 +81,32 @@ class Ui extends React.Component {
               </Button>
               <a-scene embedded>
 
-                <a-entity id="main-camera" camera fps-look-controls wasd-controls> {/*raycaster to enable click detection*/}
+                {/* <a-entity id="main-camera" camera fps-look-controls wasd-controls super-hands hand-controls="right"> {/*raycaster to enable click detection}
                   <a-entity cursor="rayOrigin: mouse;" raycaster="objects: .clickable" position="0 0 -1"
                             geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
                             material="color: rgb(255, 255, 255); shader: flat; opacity: 0.5; transparent: true"></a-entity>
-                </a-entity>
+                </a-entity> */}
+
+                <a-entity camera wasd-controls position="0 1 1"
+                             capture-mouse
+                             raycaster="objects: .cube" cursor="rayOrigin:mouse"
+                             static-body="shape: sphere; sphereRadius: 0.001"
+                             super-hands="colliderEvent: raycaster-intersection;
+                                          colliderEventProperty: els;
+                                          colliderEndEvent:raycaster-intersection-cleared;
+                                          colliderEndEventProperty: clearedEls;">
+                   </a-entity>
 
                 <a-assets>
+                  <a-mixin id="cube" geometry="primitive: box; width: 0.5; height: 0.5; depth: 0.5"
+                           hoverable grabbable stretchable draggable droppable
+                           shadow
+                           event-set__dragdrop="_event: drag-drop; geometry.radius: 0.25; geometry.primitive: sphere"
+                           event-set__hoveron="_event: hover-start; material.opacity: 0.7; transparent: true"
+                           event-set__hoveroff="_event: hover-end; material.opacity: 1; transparent: false"
+                           event-set__dragon="_event: dragover-start; material.wireframe: true"
+                           event-set__dragoff="_event: dragover-end; material.wireframe: false">
+                  </a-mixin>
                   <img id="start-bg" src={sidewalk} alt="start-bg" />
                   <img id="detail-bg" src={street} alt="detail-bg" />
                   <img id="left-tile-image" src={slopes} alt="left-tile" />
@@ -146,6 +166,7 @@ class Ui extends React.Component {
                              easing: easeInOutQuad; loop: false; from:0; to: 1; delay: 1500;"></a-image> */}
 
                 {/* <a-text value="Now Interactable" geometry="primitive:plane" position="4.5 1 -8"></a-text> */}
+                <a-entity class="cube" mixin="cube" position="0 1 -1.25" material="color: red"></a-entity>
 
               </a-scene>
             </div>

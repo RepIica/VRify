@@ -1,3 +1,4 @@
+import tinycolor from 'tinycolor2'
 
 const randInt = (mn,mx) => {
   return Math.floor(Math.random()*(mx-mn+1)+mn);
@@ -34,14 +35,24 @@ const textValidator = (text) => {
   }
 }
 
-function randHexColor(){
-  var c = '';
+const randHexColor = () => {
+  let c = '';
   while (c.length < 6) {
     c += (Math.random()).toString(16).substr(-6).substr(-1)
   }
   return '#'+c;
 }
 
+const randBrightColor = () => {
+  console.log('randBrightColor');
+  const c = tinycolor(randHexColor())
+  return c.isLight() ? c.saturate(90) : randBrightColor()
+}
+const randGrayColor = () => {
+  console.log('randGrayColor');
+  const c = tinycolor(randHexColor())
+  return c.isDark() ? c.desaturate(70) : randGrayColor()
+}
 
 
 export {
@@ -51,4 +62,6 @@ export {
   randInv,
   textValidator,
   randHexColor,
+  randBrightColor,
+  randGrayColor,
 }
