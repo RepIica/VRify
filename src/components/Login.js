@@ -25,6 +25,7 @@ class Login extends React.Component {
               <Header as="h1" textAlign="center" inverted color="grey" id='login-h1'>Login</Header>
               <form onSubmit={(e) => {
                   e.preventDefault()
+                  // when submitLogin is refactored to be pure, put other state updates in here
                   this.props.submitLogin(this.state.email, this.state.password)
                 }}>
                 <input type="text" name="email" placeholder="email" value={this.state.email} onChange={this.onInputChange}/><br/><br/>

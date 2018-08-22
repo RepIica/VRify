@@ -15,8 +15,17 @@ const postProj = (proj) => {
   }).then(res => res.json())
 }
 
-const getProjects = () => {
-  return fetch(`${urlBase}/projects`).then(resp => resp.json())
+const getProjects = (userId) => {
+  return fetch(`${urlBase}/user/projects`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Accepts: 'application/json',
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      userId
+    })
+  }).then(resp => resp.json())
 }
 
 export {

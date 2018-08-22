@@ -40,7 +40,7 @@ class SemNav extends React.Component {
     const el = document.querySelector('.right.menu')
     if (el.style.position==='static'){
       el.style.position = 'absolute'
-      el.style.visibility = 'hidden'      
+      el.style.visibility = 'hidden'
     }else{
       el.style.position = 'static'
       el.style.visibility = 'visible'

@@ -1,3 +1,4 @@
+//NOT IN USE YET
 import {GET_USERS} from '../actions/types.js'
 
 const initialState = {
