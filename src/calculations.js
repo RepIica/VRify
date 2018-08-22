@@ -17,13 +17,38 @@ const randInv = (mn,mx,intv) => { // returns random num with intervals as small 
     return Math.round(x+intv - x%intv)
   }else{
     return Math.round((x+intv - x%intv) * 1000) / 1000 // rounds to thousanth decimal point
-
   }
 }
+const textValidator = (text) => {
+  if (text) {
+    if(text ==="") {
+      alert('Inavlid text, please try again.');
+      return null
+    }
+    else{
+      return text
+    }
+  }else{
+    alert('No project name entered, please try again.');
+    return null
+  }
+}
+
+function randHexColor(){
+  var c = '';
+  while (c.length < 6) {
+    c += (Math.random()).toString(16).substr(-6).substr(-1)
+  }
+  return '#'+c;
+}
+
+
 
 export {
   randInt,
   randFloat,
   randRounded,
   randInv,
+  textValidator,
+  randHexColor,
 }

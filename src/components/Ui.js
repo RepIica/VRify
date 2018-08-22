@@ -5,7 +5,7 @@ import slopes from '../img/slopes.jpg'
 import sidewalk from '../img/sidewalk.jpg'
 import landscape from '../img/landscape.jpg'
 import SidebarItems from './SidebarItems.js'
-import {randInt,randInv} from '../calculations.js'
+import { randInt,randInv,textValidator,randHexColor } from '../calculations.js'
 import { Button } from 'semantic-ui-react'
 import { Menu, Segment, Sidebar } from 'semantic-ui-react'
 
@@ -19,23 +19,26 @@ class Ui extends React.Component {
   addPrimitive = (primitive) => {
     const sceneEl = document.querySelector('a-scene');
     const entityEl = document.createElement(`a-${primitive}`);
-    // Do `.setAttribute()`s to initialize the entity.
+
     const z = randInv(-7, -2, 0.2)
     const y = randInv(0, 3, 0.2)
     const x = randInv(-3, 3, 0.2)
     console.log(x,y,z)
     sceneEl.appendChild(entityEl);
     entityEl.setAttribute('position', {x, y, z});
+    entityEl.setAttribute('color', randHexColor());
     entityEl.classList.add('user-added')
     // entityEl.object3D.position.set(x, y, z);
     console.log(`${primitive} added`);
   }
 
   addText = () => {
-    const text = prompt('Enter Text:')
-    this.addPrimitive('text')           //refactor to not use this method, possible async issue
-    const allTexts = document.querySelectorAll('a-text')
-    allTexts[allTexts.length-1].setAttribute('value', text)
+    const text = textValidator(prompt('Enter Text:'))
+    if (text) {
+      this.addPrimitive('text')           //refactor to not use this method, possible async issue
+      const allTexts = document.querySelectorAll('a-text')
+      allTexts[allTexts.length-1].setAttribute('value', text)
+    }
   }
 
   removeAllUserAdded = () => {
