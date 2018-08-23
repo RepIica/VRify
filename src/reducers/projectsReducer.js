@@ -1,8 +1,6 @@
 import {SAVE_PROJ, SET_PROJS, LOGIN_USER} from '../actions/types.js'
 
 const initialState = {
-  currentUser: null,
-  users: [],
   currentProject: null,
   projects: null
 }

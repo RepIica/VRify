@@ -6,11 +6,16 @@ export const saveProj = (proj) => {
   return (dispatch) => {
     postProj(proj)
       .then((data) =>{
-        console.log(data)
-        dispatch({ // action object
-          type: SAVE_PROJ,
-          payload: data
-        })
+        if (data.hasOwnProperty('error')) {
+          alert(`Sorry, you already have a project named ${proj.name}. Choose a different name.`)
+          console.error(data) 
+          // why does page reload here???
+        }else{
+          dispatch({ // action object
+            type: SAVE_PROJ,
+            payload: data
+          })
+        }
       })
   }
 }

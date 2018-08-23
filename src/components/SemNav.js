@@ -18,14 +18,12 @@ class SemNav extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.error('SemNav COMPONENT DID UPDATED!')
+    console.log('<SemNav> componentDidUpdated')
     console.log(this.props)
     if (this.props.currentUser && this.props.currentProj) {
-      console.log('QUERYSELECTING')
           const dlBtn = document.querySelector('.dl')
           if (dlBtn) {
             dlBtn.href=`./${this.props.currentUser.name}/${this.props.currentProj.name}.html`
-
           }else{
             console.error('no download button on page')
           }
@@ -67,9 +65,13 @@ class SemNav extends React.Component {
             <React.Fragment>
               <Dropdown item text='MY PROJECTS' className="navlink1">
                 <Dropdown.Menu>
-                  <Dropdown.Item>Project 1</Dropdown.Item>
-                  <Dropdown.Item>Project 2</Dropdown.Item>
-                  <Dropdown.Item>Project 3</Dropdown.Item>
+
+                  {this.props.projects ?
+                    this.props.projects.map((project) => <Dropdown.Item key={project.id}>{project.name}</Dropdown.Item>)
+                    :
+                    <Dropdown.Item>No Projects Yet!</Dropdown.Item>
+                  }
+
                 </Dropdown.Menu>
               </Dropdown>
               <Menu.Item
