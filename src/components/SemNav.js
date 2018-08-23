@@ -18,20 +18,17 @@ class SemNav extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.currentUser) {
-      this.projName(this.props.currentUser.id)
-        .then(data => {
-          console.log(data)
-          console.log(data.length)
+    console.error('SemNav COMPONENT DID UPDATED!')
+    console.log(this.props)
+    if (this.props.currentUser && this.props.currentProj) {
+      console.log('QUERYSELECTING')
           const dlBtn = document.querySelector('.dl')
           if (dlBtn) {
-            dlBtn.href=`./${this.props.currentUser.name}/${data[data.length-1]}.html`
-            data.length ? document.querySelector('.dl').innerHTML= 'DOWNLOAD' : null
+            dlBtn.href=`./${this.props.currentUser.name}/${this.props.currentProj.name}.html`
+
           }else{
             console.error('no download button on page')
           }
-          // document.querySelector('.dl').href=`./Lawrence/ProjL11.html`
-        })
     }
 
   }
@@ -48,7 +45,7 @@ class SemNav extends React.Component {
   }
 
   render() {
-
+    console.warn(this.props.projects)
     return (
       <Menu stackable id="nav">
         <Menu.Item
@@ -78,17 +75,21 @@ class SemNav extends React.Component {
               <Menu.Item
                 name='SAVE PROJECT'
                 className="navlink1"
-                onClick={(e) => {this.props.save();this.props.setProj()}}
+                onClick={this.props.save}
+                // onClick={(e) => {this.props.save();this.props.setProj()}}
                 download
               />
-              <Menu.Item
-                name='DOWNLOAD'
-                className="dl navlink1"
-                onClick={(e) => {
-                  console.log(`downloading ${e.target.href}`)
-                }}
-                download
-              />
+              {this.props.currentProj &&
+                <Menu.Item
+                  name='DOWNLOAD'
+                  className="dl navlink1"
+                  onClick={(e) => {
+                    console.log(`downloading ${e.target.href}`)
+                  }}
+                  href={this.props.projects[this.props.projects.length-1].filepath}
+                  download
+                />
+              }
               <Menu.Item
                 name='LOGOUT'
                 onClick={this.props.logout}
@@ -112,7 +113,9 @@ class SemNav extends React.Component {
 
 const mapStateToProps = (state) => {
   return{
-    currentUser: state.authReducer.currentUser
+    currentUser: state.authReducer.currentUser,
+    projects: state.projectsReducer.projects,
+    currentProj: state.projectsReducer.currentProject
   }
 }
 

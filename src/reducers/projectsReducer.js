@@ -1,30 +1,32 @@
-import {SAVE_PROJ, GET_PROJS, LOGIN_USER} from '../actions/types.js'
+import {SAVE_PROJ, SET_PROJS, LOGIN_USER} from '../actions/types.js'
 
 const initialState = {
   currentUser: null,
   users: [],
   currentProject: null,
-  projects: []
+  projects: null
 }
 
 export default function (state = initialState, action) {
   switch(action.type) {
-    case LOGIN_USER:
-    console.log('hit projectsReducer');
-      return {
-        ...state,
-        projects: action.projects
-      }
     case SAVE_PROJ:
-      return {
-        ...state,
-        currentProj: action.payload.name,
-
-      }
-      case GET_PROJS:
+      if (action.payload.name) {
+        return {
+          ...state,
+          currentProject: action.payload,
+          projects: [...state.projects, action.payload],
+        }
+      }else{
+        console.error(action.payload)
         return {
           ...state,
         }
+      }
+    case SET_PROJS:
+      return {
+        ...state,
+        projects: action.payload
+      }
     default:
       return state
   }

@@ -1,4 +1,4 @@
-import {SAVE_PROJ,GET_PROJS} from './types'
+import {SAVE_PROJ,SET_PROJS} from './types'
 import {postProj} from '../adapters/projectsAdapter.js'
 
 
@@ -15,11 +15,12 @@ export const saveProj = (proj) => {
   }
 }
 
-export const setProjects = () => {
+export const setProjects = (projects) => {
   return (dispatch) => {
     //getProjects()?
     dispatch({
-      type: GET_PROJS
+      type: SET_PROJS,
+      payload: projects
     })
   }
 }

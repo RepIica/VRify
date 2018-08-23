@@ -7,9 +7,10 @@ import ImageFade from './components/ImageFade.js'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getCurrentUser } from './adapters/authAdapter.js'
+import { getProjects } from './adapters/projectsAdapter.js'
 import { setSessionUser } from './actions/authActions.js'
 import { removeSessionUser } from './actions/userActions.js'
-import { saveProj } from './actions/projectActions.js'
+import { saveProj, setProjects } from './actions/projectActions.js'
 
 class App extends Component {
 
@@ -18,6 +19,12 @@ class App extends Component {
       getCurrentUser(localStorage.getItem('token')).then((user) => {
         if (user) {
           this.props.setSessionUser(user)
+          getProjects(user.id)
+            .then(projectsData => {
+              // console.log(projectsData)
+              // console.log(projectsData.length)
+              this.props.setProjects(projectsData)
+            })
         } else {
           this.logout()
         }
@@ -34,6 +41,23 @@ class App extends Component {
     //   })
 
   }
+  componentDidUpdate() {
+    console.log('<App/> componentDidUpdated')
+    if (localStorage.getItem('token')) {
+      getCurrentUser(localStorage.getItem('token')).then((user) => {
+        if (user) {
+          getProjects(user.id)
+            .then(projectsData => {
+              // console.log(projectsData)
+              // console.log(projectsData.length)
+              this.props.setProjects(projectsData)
+            })
+        } else {
+          this.logout()
+        }
+      })
+    }
+  }
 
   logout = () => {
     localStorage.removeItem('token')
@@ -44,7 +68,7 @@ class App extends Component {
   saveProject = () => {
     // const fileContent = document.documentElement.innerHTML;
     const fileContent = document.getElementsByTagName('a-scene')[0].innerHTML;
-    const name = this.projectName()
+    const name = this.promptProjectName()
     const projToSave = {
       fileContent,
       name,
@@ -52,13 +76,12 @@ class App extends Component {
     }
     if (name) {
       this.props.saveProj(projToSave)
-      window.location.reload()
     }
   }
 
-  projectName = () => {
+  promptProjectName = () => {
     let projName = prompt(`Please enter project name, ${this.props.currentUser.name}`);
-    if (projName){
+    if (projName){ // validations
       if(projName.includes(" ")){
         alert('Please do not include spaces in your project name')
         return null
@@ -68,7 +91,7 @@ class App extends Component {
         alert('Inavlid project name, please try again.');
         return null
       }
-      else{
+      else{ // valid Project Name, returns it
         console.log("Your Project Name is " + projName)
         return projName
       }
@@ -81,8 +104,6 @@ class App extends Component {
 
 
   render() {
-
-    console.log('<App /> rendered');
     return (
       <React.Fragment>
 
@@ -90,7 +111,7 @@ class App extends Component {
           logout={this.logout}
           save={this.saveProject}
           history={this.props.history}
-          setProj={()=>{console.log('dispatch currentproj to store')}}
+          // setProj={()=>{console.log('dispatch currentproj to store')}}
         />
 
         <Switch>
@@ -135,4 +156,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps, { setSessionUser, removeSessionUser, saveProj })(App));
+export default withRouter(connect(mapStateToProps, { setSessionUser, removeSessionUser, saveProj, setProjects })(App));
