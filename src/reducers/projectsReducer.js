@@ -1,4 +1,4 @@
-import {SAVE_PROJ, SET_PROJS, LOGIN_USER} from '../actions/types.js'
+import {SAVE_PROJ, SET_PROJS, LOGIN_USER, SET_CURR_PROJ} from '../actions/types.js'
 
 const initialState = {
   currentProject: null,
@@ -19,6 +19,11 @@ export default function (state = initialState, action) {
         return {
           ...state,
         }
+      }
+    case SET_CURR_PROJ:
+      return {
+        ...state,
+        currentProject: action.payload
       }
     case SET_PROJS:
       return {

@@ -1,21 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Dropdown, Menu, Button } from 'semantic-ui-react'
+import { setCurrentProject } from '../actions/projectActions.js'
 
 class SemNav extends React.Component {
-
-  projName = (id) => {
-    return fetch(`http://localhost:3001/api/v1/user/projects`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Accepts: 'application/json',
-      },
-      method: 'POST',
-      body: JSON.stringify({
-        userId: id
-      })
-    }).then(resp => resp.json())
-  }
 
   componentDidUpdate(prevProps, prevState) {
     console.log('<SemNav> componentDidUpdated')
@@ -40,6 +28,12 @@ class SemNav extends React.Component {
       el.style.position = 'static'
       el.style.visibility = 'visible'
     }
+  }
+
+  loadProj = (projId) => {
+    const selectedProj = this.props.projects.find(proj => proj.id === projId)
+    this.props.setCurrentProject(selectedProj)
+
   }
 
   render() {
@@ -67,7 +61,7 @@ class SemNav extends React.Component {
                 <Dropdown.Menu>
 
                   {this.props.projects ?
-                    this.props.projects.map((project) => <Dropdown.Item key={project.id}>{project.name}</Dropdown.Item>)
+                    this.props.projects.map((project) => <Dropdown.Item key={project.id} onClick={()=>{this.loadProj(project.id)}} >{project.name}</Dropdown.Item>)
                     :
                     <Dropdown.Item>No Projects Yet!</Dropdown.Item>
                   }
@@ -121,4 +115,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(SemNav)
+export default connect(mapStateToProps, { setCurrentProject })(SemNav)
