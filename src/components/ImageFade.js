@@ -1,18 +1,47 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Image, Reveal } from 'semantic-ui-react'
 import church from '../img/church.jpg'
+import ColorPicker from './ColorPicker.js'
+import { Grid } from 'semantic-ui-react'
 
+class ImageFade extends Component {
 
-const ImageFade = () => (
-  <Reveal animated='small fade'>
-    <Reveal.Content visible>
-      <Image src={church} size='small' />
-    </Reveal.Content>
-    <Reveal.Content hidden>
-      <h1>Hello Semantic</h1>
-    </Reveal.Content>
-  </Reveal>
-)
+  state = {
+    color: '#fff',
+  }
 
+  handleChangeComplete = (color) => {
+    this.setState({ color: color.hex });
+  };
+
+  render() {
+    return (
+      <div>
+        <Reveal animated='small fade'>
+          <Reveal.Content visible>
+            <Image src={church} size='small' />
+          </Reveal.Content>
+          <Reveal.Content hidden>
+            <h1>Hello Semantic</h1>
+          </Reveal.Content>
+        </Reveal>
+        <br/>
+        <br/>
+        <br/>
+        <Grid verticalAlign='middle' columns={3} centered>
+          <Grid.Row>
+            <Grid.Column>
+              <h1>State Color: {this.state.color}</h1>
+            </Grid.Column>
+            <Grid.Column>
+              <ColorPicker color={this.state.color} handleChange={this.handleChangeComplete}/>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </div>
+    );
+  }
+
+}
 
 export default ImageFade

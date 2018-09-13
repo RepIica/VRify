@@ -26,7 +26,7 @@ class Ui extends React.Component {
     console.log(x,y,z)
     sceneEl.appendChild(entityEl);
     entityEl.setAttribute('position', {x, y, z});
-    entityEl.setAttribute('color', '#ac1aab');
+    entityEl.setAttribute('color', randGrayColor());
     entityEl.setAttribute('mixin', 'editable');
     entityEl.classList.add('clickable')
     // entityEl.object3D.position.set(x, y, z);
@@ -63,7 +63,7 @@ class Ui extends React.Component {
       <Sidebar.Pushable as={Segment}>
         <Sidebar
           as={Menu}
-          animation='scale down'
+          animation='overlay'
           icon='labeled'
           inverted
           onHide={this.handleSidebarHide}
