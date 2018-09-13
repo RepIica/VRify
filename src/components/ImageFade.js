@@ -11,8 +11,13 @@ class ImageFade extends Component {
   }
 
   handleChangeComplete = (color) => {
-    this.setState({ color: color.hex });
+    this.setState({ color: color.hex },console.log('state is now', this.state.color));
   };
+
+  componentDidUpdate() {
+    console.log('Component Mounted')
+    document.querySelector('#state-color').style.color = this.state.color
+  }
 
   render() {
     return (
@@ -31,7 +36,7 @@ class ImageFade extends Component {
         <Grid verticalAlign='middle' columns={3} centered>
           <Grid.Row>
             <Grid.Column>
-              <h1>State Color: {this.state.color}</h1>
+              <h1 id="state-color">State Color: {this.state.color}</h1>
             </Grid.Column>
             <Grid.Column>
               <ColorPicker color={this.state.color} handleChange={this.handleChangeComplete}/>
