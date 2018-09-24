@@ -6,9 +6,17 @@ class ColorPicker extends React.Component {
 
 
   render() {
-    return <SliderPicker
-      color={ this.props.color }
-      onChangeComplete={ this.props.handleChange } />;
+    return (
+      <div className="modal">
+        <div className="modalContent">
+          <SliderPicker
+            color={ this.props.color }
+            onChangeComplete={ this.props.handleChange } />;
+        </div>
+        <div className="modalBg"></div>
+      </div>
+
+    )
   }
 }
 

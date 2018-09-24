@@ -10,7 +10,10 @@ import { Button } from 'semantic-ui-react'
 import { Menu, Segment, Sidebar } from 'semantic-ui-react'
 
 class Ui extends React.Component {
-  state = { visible: false }
+  state = {
+    visible: false,
+    colorpicker: false,
+  }
 
   handleButtonClick = () => this.setState({ visible: !this.state.visible })
 
@@ -26,6 +29,7 @@ class Ui extends React.Component {
     console.log(x,y,z)
     sceneEl.appendChild(entityEl);
     entityEl.setAttribute('position', {x, y, z});
+    this.state.color ? console.log('COLOR:', this.state.color) : console.log('default color chosen')
     entityEl.setAttribute('color', randGrayColor());
     entityEl.setAttribute('mixin', 'editable');
     entityEl.classList.add('clickable')
@@ -56,6 +60,20 @@ class Ui extends React.Component {
     sceneEl.querySelectorAll('.clickable').forEach((el)=>{el.parentNode.removeChild(el)})
   }
 
+  handleColorChange = (color) => {
+    this.setState({ color: color.hex },console.log('state is now', this.state.color));
+  }
+
+  openColorModal = () => this.setState({ colorpicker: true })
+  // 
+  // closeBtn.addEventListener('click',(e) => {
+  //   modal.style.display = 'none'
+  // })
+  // modalBg.addEventListener('click',(e) => {
+  //   modal.style.display = 'none'
+  // })
+
+
   render() {
     const { visible } = this.state
     return(
@@ -76,6 +94,8 @@ class Ui extends React.Component {
             removeAllUserAdded={this.removeAllUserAdded}
             addText={this.addText}
             addText2={this.addText2}
+            colorHandler={this.handleColorChange}
+            handleColorClick={this.openColorModal}
           ></SidebarItems>
 
         </Sidebar>
