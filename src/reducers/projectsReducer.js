@@ -1,8 +1,10 @@
-import {SAVE_PROJ, SET_PROJS, LOGIN_USER} from '../actions/types.js'
+import {SAVE_PROJ, SET_PROJS, SET_COLOR} from '../actions/types.js'
 
 const initialState = {
   currentProject: null,
-  projects: null
+  projects: null,
+  currentColor: null,
+  colors: [],
 }
 
 export default function (state = initialState, action) {
@@ -24,6 +26,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         projects: action.payload
+      }
+    case SET_COLOR:
+      return {
+        ...state,
+        colors: [...state.colors, action.payload],
+        currentColor: action.payload
       }
     default:
       return state

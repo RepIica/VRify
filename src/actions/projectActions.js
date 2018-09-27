@@ -1,4 +1,4 @@
-import {SAVE_PROJ,SET_PROJS} from './types'
+import {SAVE_PROJ,SET_PROJS,SET_COLOR} from './types'
 import {postProj} from '../adapters/projectsAdapter.js'
 
 
@@ -8,7 +8,7 @@ export const saveProj = (proj) => {
       .then((data) =>{
         if (data.hasOwnProperty('error')) {
           alert(`Sorry, you already have a project named ${proj.name}. Choose a different name.`)
-          console.error(data) 
+          console.error(data)
           // why does page reload here???
         }else{
           dispatch({ // action object
@@ -26,6 +26,15 @@ export const setProjects = (projects) => {
     dispatch({
       type: SET_PROJS,
       payload: projects
+    })
+  }
+}
+
+export const setColor = (colorCode) => {
+  return (dispatch) => {
+    dispatch({
+      type: SET_COLOR,
+      payload: colorCode
     })
   }
 }

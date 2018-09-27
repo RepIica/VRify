@@ -19,6 +19,10 @@ class ImageFade extends Component {
     document.querySelector('#state-color').style.color = this.state.color
   }
 
+  colorHandler = () => {
+    document.querySelector('.modal').style.display = 'block'
+  }
+
   render() {
     return (
       <div>
@@ -36,13 +40,13 @@ class ImageFade extends Component {
         <Grid verticalAlign='middle' columns={3} centered>
           <Grid.Row>
             <Grid.Column>
-              <h1 id="state-color">State Color: {this.state.color}</h1>
+              <h1 id="state-color" onClick={this.colorHandler}>State Color: {this.state.color}</h1>
             </Grid.Column>
             <Grid.Column>
-              <ColorPicker color={this.state.color} handleChange={this.handleChangeComplete}/>
             </Grid.Column>
           </Grid.Row>
         </Grid>
+        <ColorPicker color={this.state.color} handleChange={this.handleChangeComplete}/>
       </div>
     );
   }

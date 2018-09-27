@@ -1,22 +1,40 @@
-import React from 'react'
+import React, { Component } from 'react'
+// import { connect } from 'react-redux'
+// import { setColor } from './../actions/projectActions.js'
 import { Dropdown, Menu } from 'semantic-ui-react'
+// import ColorPicker from './ColorPicker.js'
 import FlagsDropdown from './FlagsDropdown.js'
 
-const SidebarItems = (props) => (
-  <React.Fragment>
-    <Menu.Item as='a' className="shape-btn" onClick={()=>{props.addPrimitive('sphere')}}>sphere</Menu.Item>
-    <Menu.Item as='a' className="shape-btn" onClick={()=>{props.addPrimitive('box')}}>cube</Menu.Item>
-    <Menu.Item as='a' className="shape-btn" onClick={()=>{props.addPrimitive('torus-knot')}}>torus knot</Menu.Item>
-    <Menu.Item as='a' className="shape-btn" onClick={()=>{props.addPrimitive('plane')}}>plane</Menu.Item>
-    <Menu.Item as='a' className="shape-btn" onClick={()=>{props.addPrimitive('light')}}>kill lights</Menu.Item>
-    <Menu.Item as='a' className="shape-btn" onClick={props.addText}>Add Text</Menu.Item>
-    <Menu.Item as='a' className="shape-btn" onClick={props.addText2}>Add Text v2</Menu.Item>
-    <Menu.Item as='a' className="shape-btn" onClick={props.handleColorClick} handleChange={props.colorHandler}>Select Color</Menu.Item>
+class SidebarItems extends Component {
 
-    <FlagsDropdown></FlagsDropdown>
-    <Menu.Item as='a' className="shape-btn warning" onClick={props.removeAllUserAdded}>clear</Menu.Item>
+  render() {
+    return (
+      <React.Fragment>
+        <Menu.Item as='a' className="shape-btn" onClick={()=>{this.props.addPrimitive('sphere')}}>sphere</Menu.Item>
+        <Menu.Item as='a' className="shape-btn" onClick={()=>{this.props.addPrimitive('box')}}>cube</Menu.Item>
+        <Menu.Item as='a' className="shape-btn" onClick={()=>{this.props.addPrimitive('torus-knot')}}>torus knot</Menu.Item>
+        <Menu.Item as='a' className="shape-btn" onClick={()=>{this.props.addPrimitive('plane')}}>plane</Menu.Item>
+        <Menu.Item as='a' className="shape-btn" onClick={()=>{this.props.addPrimitive('light')}}>kill lights</Menu.Item>
+        <Menu.Item as='a' className="shape-btn" onClick={this.props.addText}>Add Text</Menu.Item>
+        <Menu.Item as='a' className="shape-btn" onClick={this.props.addText2}>Add Text v2</Menu.Item>
+        <Menu.Item as='a' className="shape-btn" onClick={this.props.handleColorPicker} >Select Color</Menu.Item>
 
-  </React.Fragment>
-)
+        <FlagsDropdown></FlagsDropdown>
+        <Menu.Item as='a' className="shape-btn warning" onClick={this.props.removeAllUserAdded}>clear</Menu.Item>
 
+      </React.Fragment>
+
+    )
+  }
+}
+
+// const mapStateToProps = (state) => {
+//   return{
+//     currentColor: state.currentColor,
+//     colors: state.colors
+//
+//   }
+// }
+
+// export default connect(mapStateToProps, { setColor })(SidebarItems)
 export default SidebarItems

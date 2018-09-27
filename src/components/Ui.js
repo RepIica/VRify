@@ -4,6 +4,7 @@ import church from '../img/church.jpg'
 import slopes from '../img/slopes.jpg'
 import sidewalk from '../img/sidewalk.jpg'
 import landscape from '../img/landscape.jpg'
+import ColorPicker from './ColorPicker.js'
 import SidebarItems from './SidebarItems.js'
 import { randInt,randInv,textValidator,randBrightColor,randGrayColor } from '../calculations.js'
 import { Button } from 'semantic-ui-react'
@@ -12,7 +13,28 @@ import { Menu, Segment, Sidebar } from 'semantic-ui-react'
 class Ui extends React.Component {
   state = {
     visible: false,
-    colorpicker: false,
+    color: '#fff',
+  }
+
+  handleColorChange = (color) => {
+    this.setState({ color: color.hex }, console.log('state is now', this.state.color));
+  }
+
+  colorHandler = () => {
+    if (document.querySelector('.modal')) {
+      document.querySelector('.modal').style.display = 'block'
+    }else {
+      console.warn('no .modal element')
+    }
+
+  }
+
+  closeBtnHandler = () => {
+    if (document.querySelector('.modal')) {
+      document.querySelector('.modal').style.display = 'none'
+    }else {
+      console.warn('no .modal element')
+    }
   }
 
   handleButtonClick = () => this.setState({ visible: !this.state.visible })
@@ -29,8 +51,12 @@ class Ui extends React.Component {
     console.log(x,y,z)
     sceneEl.appendChild(entityEl);
     entityEl.setAttribute('position', {x, y, z});
-    this.state.color ? console.log('COLOR:', this.state.color) : console.log('default color chosen')
-    entityEl.setAttribute('color', randGrayColor());
+    if (this.state.color=== '#fff') {
+      console.log('default color chosen')
+      entityEl.setAttribute('color', randGrayColor());
+    }else{
+      entityEl.setAttribute('color', this.state.color);
+    }
     entityEl.setAttribute('mixin', 'editable');
     entityEl.classList.add('clickable')
     // entityEl.object3D.position.set(x, y, z);
@@ -60,25 +86,14 @@ class Ui extends React.Component {
     sceneEl.querySelectorAll('.clickable').forEach((el)=>{el.parentNode.removeChild(el)})
   }
 
-  handleColorChange = (color) => {
-    this.setState({ color: color.hex },console.log('state is now', this.state.color));
-  }
-
-  openColorModal = () => this.setState({ colorpicker: true })
-  // 
-  // closeBtn.addEventListener('click',(e) => {
-  //   modal.style.display = 'none'
-  // })
-  // modalBg.addEventListener('click',(e) => {
-  //   modal.style.display = 'none'
-  // })
-
 
   render() {
     const { visible } = this.state
     return(
 
       <Sidebar.Pushable as={Segment}>
+        <ColorPicker color={this.state.color} handleChange={this.handleColorChange}/> {/* Modal for colorpicker revealed by <SidebarItems> */}
+
         <Sidebar
           as={Menu}
           animation='overlay'
@@ -94,8 +109,7 @@ class Ui extends React.Component {
             removeAllUserAdded={this.removeAllUserAdded}
             addText={this.addText}
             addText2={this.addText2}
-            colorHandler={this.handleColorChange}
-            handleColorClick={this.openColorModal}
+            handleColorPicker={this.colorHandler}
           ></SidebarItems>
 
         </Sidebar>
