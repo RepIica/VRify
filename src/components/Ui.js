@@ -6,13 +6,7 @@ import sidewalk from "../img/sidewalk.jpg";
 import landscape from "../img/landscape.jpg";
 import ColorPicker from "./ColorPicker.js";
 import SidebarItems from "./SidebarItems.js";
-import {
-  randInt,
-  randInv,
-  textValidator,
-  randBrightColor,
-  randGrayColor,
-} from "../calculations.js";
+import { randInv, textValidator, randGrayColor } from "../calculations.js";
 import { Button } from "semantic-ui-react";
 import { Menu, Segment, Sidebar } from "semantic-ui-react";
 

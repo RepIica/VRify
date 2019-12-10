@@ -17,8 +17,6 @@ class Nav extends React.Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("<Nav> componentDidUpdated");
-    console.log(this.props);
     if (this.props.currentUser && this.props.currentProj) {
       const dlBtn = document.querySelector(".dl");
       if (dlBtn) {
