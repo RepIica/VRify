@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Dropdown, Menu, Button } from "semantic-ui-react";
 
-// not used - will probably delete
 class Nav extends React.Component {
   projName = id => {
     return fetch(`http://localhost:3001/api/v1/user/projects`, {
@@ -17,84 +17,102 @@ class Nav extends React.Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.currentUser) {
-      this.projName(this.props.currentUser.id).then(data => {
-        console.log(data);
-        console.log(data.length);
-        document.querySelector(".dl").href = `./${
-          this.props.currentUser.name
-        }/${data[data.length - 1]}.html`;
-        data.length
-          ? (document.querySelector(".dl").innerHTML = "DOWNLOAD")
-          : null;
-        // document.querySelector('.dl').href=`./Lawrence/ProjL11.html`
-      });
+    console.log("<Nav> componentDidUpdated");
+    console.log(this.props);
+    if (this.props.currentUser && this.props.currentProj) {
+      const dlBtn = document.querySelector(".dl");
+      if (dlBtn) {
+        dlBtn.href = `./${this.props.currentUser.name}/${this.props.currentProj.name}.html`;
+      } else {
+        console.error("no download button on page");
+      }
     }
   }
 
+  mobileToggle = () => {
+    const el = document.querySelector(".right.menu");
+    if (el.style.position === "static") {
+      el.style.position = "absolute";
+      el.style.visibility = "hidden";
+    } else {
+      el.style.position = "static";
+      el.style.visibility = "visible";
+    }
+  };
+
   render() {
+    console.warn(this.props.projects);
     return (
-      <nav className="navbar navbar-default" id="nav">
-        <div className="container-fluid">
-          <div className="navbar-header">
-            <button
-              type="button"
-              className="navbar-toggle collapsed"
-              data-toggle="collapse"
-              data-target="#bs-example-navbar-collapse-1"
-              aria-expanded="false"
-            >
-              <span className="sr-only">Toggle navigation</span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-            </button>
+      <Menu stackable id="nav">
+        <Menu.Item
+          name="home"
+          onClick={e => {
+            this.props.history.push("/");
+          }}
+          content="VRify"
+          // children={<span>IFY</span>}
+          id="logo"
+        />
 
-            <a className="navbar-brand" id="logo" href="/">
-              VR<span>IFY</span>
-            </a>
-          </div>
+        <Button onClick={this.mobileToggle} id="mobile-btn">
+          <span className="icon-bar"></span>
+          <span className="icon-bar"></span>
+          <span className="icon-bar"></span>
+        </Button>
 
-          <div
-            className="collapse navbar-collapse"
-            id="bs-example-navbar-collapse-1"
-          >
-            <ul className="nav navbar-nav">
-              {/* {this.props.currentUser ?<li><a id="navlink1">LOGGED IN AS: {this.props.currentUser.name.toUpperCase()}</a></li>:null} */}
-            </ul>
-            <ul className="nav navbar-nav navbar-right">
-              {this.props.currentUser ? (
-                <React.Fragment>
-                  <li>
-                    <a onClick={this.props.logout} id="navlink1">
-                      MY PROJECTS
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      onClick={() => {
-                        this.props.save();
-                        this.setProj();
-                      }}
-                      id="navlink1"
-                    >
-                      SAVE PROJECT
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dl" id="navlink1" download></a>
-                  </li>
-                  <li>
-                    <a onClick={this.props.logout} id="navlink1">
-                      LOGOUT
-                    </a>
-                  </li>
-                </React.Fragment>
-              ) : null}
-            </ul>
-          </div>
-        </div>
-      </nav>
+        <Menu.Menu position="right">
+          {this.props.currentUser ? (
+            <React.Fragment>
+              <Dropdown item text="MY PROJECTS" className="navlink1">
+                <Dropdown.Menu>
+                  {this.props.projects ? (
+                    this.props.projects.map(project => (
+                      <Dropdown.Item key={project.id}>
+                        {project.name}
+                      </Dropdown.Item>
+                    ))
+                  ) : (
+                    <Dropdown.Item>No Projects Yet!</Dropdown.Item>
+                  )}
+                </Dropdown.Menu>
+              </Dropdown>
+              <Menu.Item
+                name="SAVE PROJECT"
+                className="navlink1"
+                onClick={this.props.save}
+                // onClick={(e) => {this.props.save();this.props.setProj()}}
+                download
+              />
+              {this.props.currentProj && (
+                <Menu.Item
+                  name="DOWNLOAD"
+                  className="dl navlink1"
+                  onClick={e => {
+                    console.log(`downloading ${e.target.href}`);
+                  }}
+                  href={
+                    this.props.projects[this.props.projects.length - 1].filepath
+                  }
+                  download
+                />
+              )}
+              <Menu.Item
+                name="LOGOUT"
+                onClick={this.props.logout}
+                className="navlink1"
+              />
+            </React.Fragment>
+          ) : (
+            <Menu.Item
+              name="SIGNUP"
+              onClick={e => {
+                this.props.history.push("/signup");
+              }}
+              className="navlink1"
+            />
+          )}
+        </Menu.Menu>
+      </Menu>
     );
   }
 }
@@ -102,6 +120,8 @@ class Nav extends React.Component {
 const mapStateToProps = state => {
   return {
     currentUser: state.authReducer.currentUser,
+    projects: state.projectsReducer.projects,
+    currentProj: state.projectsReducer.currentProject,
   };
 };
 
